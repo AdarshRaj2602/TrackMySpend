@@ -263,9 +263,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 👨‍💻 Author
 
-**Your Name**
-- GitHub: [@your-username](https://github.com/AdarshRaj2602)
-- LinkedIn: [your-linkedin](https://www.linkedin.com/in/adarsh-raj-verma-99b71436a/)
+**Adarsh Raj Verma**
+- LinkedIn: https://www.linkedin.com/in/adarsh-raj-verma-99b71436a/
 - Email: adarshrajverma2602@gmail.com
 
 ---
