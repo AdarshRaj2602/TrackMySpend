@@ -1,4 +1,4 @@
-# 💸 Expense Management System
+# 💸 Expense Management System #TrackMySpend
 
 > A full-stack expense tracking application built with **FastAPI**, **Streamlit**, and **MySQL** — featuring real-time analytics, category breakdowns, and a clean interactive UI.
 
