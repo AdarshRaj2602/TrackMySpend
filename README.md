@@ -264,9 +264,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## 👨‍💻 Author
 
 **Your Name**
-- GitHub: [@your-username](https://github.com/your-username)
-- LinkedIn: [your-linkedin](https://linkedin.com/in/your-linkedin)
-- Email: your.email@example.com
+- GitHub: [@your-username](https://github.com/AdarshRaj2602)
+- LinkedIn: [your-linkedin](https://www.linkedin.com/in/adarsh-raj-verma-99b71436a/)
+- Email: adarshrajverma2602@gmail.com
 
 ---
 
