@@ -1,6 +1,6 @@
-# 💸 Expense Management System #TrackMySpend
+# 💸 TrackMySpend ( Expense management system )
 
-> A full-stack expense tracking application built with **FastAPI**, **Streamlit**, and **MySQL** — featuring real-time analytics, category breakdowns, and a clean interactive UI.
+> A full-stack personal finance dashboard built with **FastAPI**, **Streamlit**, and **MySQL** — featuring a modern dark UI, interactive Plotly charts, real-time analytics, and a clean sidebar layout.
 
 ---
 
@@ -8,21 +8,22 @@
 
 | Add / Update Expenses | Analytics by Category | Analytics by Month |
 |---|---|---|
-| 📅 Date-based entry | 📊 Bar charts + tables | 📆 Monthly summaries |
-| Pre-filled existing data | Percentage breakdowns | Sorted by spend |
+| 📅 Date-based entry with metric cards | 📊 Plotly bar + donut charts | 📆 Area chart with monthly trends |
+| Pre-filled existing data | Percentage breakdowns + detail table | Peak month & average spend |
+| Dark themed form with icons | Animated hover interactions | Sorted chronologically |
 
 ---
 
 ## 🧠 About the Project
 
-Managing day-to-day expenses can be messy. This project solves that with a clean, intuitive web app that lets users:
+Managing day-to-day expenses can be messy. This project solves that with a clean, modern dashboard that lets users:
 
 - **Log** daily expenses with amounts, categories, and notes
-- **Visualize** spending patterns by category with percentage breakdowns
-- **Track** monthly expense trends at a glance
+- **Visualize** spending patterns by category with interactive Plotly charts
+- **Track** monthly expense trends with an area chart and average line
 - **Update** any past entry without duplicates — smart delete-then-insert logic
 
-Built as a full-stack project to demonstrate end-to-end software development — from database design to REST APIs to an interactive frontend.
+Built as a full-stack project to demonstrate end-to-end software development — from database design to REST APIs to a polished, production-grade frontend.
 
 ---
 
@@ -30,8 +31,8 @@ Built as a full-stack project to demonstrate end-to-end software development —
 
 ```
 ┌─────────────────────────────────────────────┐
-│              Streamlit Frontend              │
-│   (add_update | by_category | by_months)    │
+│         Streamlit Frontend (Dark UI)         │
+│   Sidebar | Add/Update | Category | Monthly  │
 └───────────────────┬─────────────────────────┘
                     │  HTTP (REST)
                     ▼
@@ -51,20 +52,30 @@ Built as a full-stack project to demonstrate end-to-end software development —
 
 ## ✨ Features
 
+### 🎨 Modern Dark UI
+- Deep slate dark theme (`#0F172A`) with emerald green accents (`#10B981`)
+- Custom CSS injected globally for buttons, tabs, inputs, and tables
+- Google Fonts (`DM Sans` + `DM Mono`) for a clean, professional look
+- Branded sidebar with stack tags and app description
+
 ### 📝 Expense Tracking
-- Add and update up to 5 expenses per day through a clean form
-- Choose from preset categories: **Rent, Food, Shopping, Entertainment, Other**
+- Add and update up to 5 expenses per day through a styled card form
+- Category icons for quick visual recognition (🏠 Rent, 🍔 Food, 🛍️ Shopping, 🎬 Entertainment, 📦 Other)
+- Live metric strip showing day total, entry count, and top category
 - Existing data pre-fills the form when you revisit a date — no re-entry needed
 
 ### 📊 Analytics by Category
 - Select a custom date range and get a full spending breakdown
-- Interactive bar chart showing expense **percentage** per category
-- Sortable summary table with totals and formatted figures
+- Interactive **Plotly bar chart** showing expense percentage per category
+- **Donut chart** with grand total in the center for at-a-glance share view
+- Sortable detail table with totals and formatted figures
+- Metric cards for total spent, top category, and number of categories
 
 ### 📆 Analytics by Month
 - Automatic month-over-month summary pulled from the database
-- Bar chart visualization for total spending per month
-- Clean tabular view alongside the chart
+- **Plotly area chart** with line markers and a dotted average spend line
+- Metric cards for all-time total, peak month, and monthly average
+- Chronologically sorted monthly breakdown table
 
 ### 🔧 Backend & Infrastructure
 - **Context-managed DB connections** — no connection leaks
@@ -78,6 +89,7 @@ Built as a full-stack project to demonstrate end-to-end software development —
 | Layer | Technology |
 |---|---|
 | **Frontend** | Streamlit |
+| **Visualization** | Plotly |
 | **Backend** | FastAPI + Uvicorn |
 | **Database** | MySQL |
 | **ORM / Driver** | mysql-connector-python |
@@ -93,16 +105,19 @@ Built as a full-stack project to demonstrate end-to-end software development —
 ```
 Project-expense-tracking/
 │
+├── .streamlit/
+│   └── config.toml           # Dark theme configuration
+│
 ├── backend/
 │   ├── db_helper.py          # All DB operations (fetch, insert, delete, summary)
 │   ├── logging_setup.py      # Reusable logging configuration
 │   └── server.py             # FastAPI app with all REST endpoints
 │
 ├── frontend/
-│   ├── app.py                # Streamlit entry point — tab layout
-│   ├── add_update.py         # Add/Update expenses tab
-│   ├── analytics_by_category.py  # Category analytics tab
-│   └── analytics_by_months.py    # Monthly analytics tab
+│   ├── app.py                # Streamlit entry point — sidebar + tab layout
+│   ├── add_update.py         # Add/Update expenses tab with metric cards
+│   ├── analytics_by_category.py  # Category analytics — bar + donut charts
+│   └── analytics_by_months.py    # Monthly analytics — area chart + table
 │
 ├── tests/
 │   ├── backend/
@@ -125,8 +140,8 @@ Project-expense-tracking/
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/project-expense-tracking.git
-cd project-expense-tracking
+git clone https://github.com/AdarshRaj2602/TrackMySpend.git
+cd TrackMySpend
 ```
 
 ### 2. Install Dependencies
@@ -142,11 +157,11 @@ CREATE DATABASE expense_manager;
 USE expense_manager;
 
 CREATE TABLE expenses (
-    id          INT AUTO_INCREMENT PRIMARY KEY,
+    id           INT AUTO_INCREMENT PRIMARY KEY,
     expense_date DATE NOT NULL,
-    amount      FLOAT NOT NULL,
-    category    VARCHAR(50),
-    notes       VARCHAR(255)
+    amount       FLOAT NOT NULL,
+    category     VARCHAR(50),
+    notes        VARCHAR(255)
 );
 ```
 
@@ -170,12 +185,14 @@ The API will be live at `http://localhost:8000`
 > Interactive docs available at `http://localhost:8000/docs` (Swagger UI)
 
 ### 6. Launch the Frontend
-Open a new terminal:
+Open a **new terminal** and run:
 ```bash
 cd frontend
 streamlit run app.py
 ```
 The app opens at `http://localhost:8501`
+
+> ⚠️ **Both terminals must be running at the same time.** The frontend calls the backend API on every interaction.
 
 ---
 
@@ -230,15 +247,20 @@ The project cleanly separates the database layer (`db_helper.py`), API layer (`s
 **Structured Logging**
 Every DB function logs its inputs using a shared `setup_logging()` utility, making debugging and monitoring straightforward in production.
 
+**Component-based CSS**
+All styling lives in a single `st.markdown()` block in `app.py` using CSS variables and data-testid selectors — keeping styles centralized and easy to update.
+
 ---
 
 ## 📈 Potential Improvements
 
 - [ ] User authentication & multi-user support
 - [ ] Budget limits with overspend alerts
-- [ ] CSV/PDF export of expense reports
+- [ ] Light / Dark theme toggle
+- [ ] CSV / PDF export of expense reports
 - [ ] Dockerize the full stack for one-command setup
 - [ ] Frontend test coverage with `pytest` + `selenium`
+- [ ] Mobile responsive layout optimizations
 - [ ] Environment-based config (`.env` file for DB credentials)
 
 ---
